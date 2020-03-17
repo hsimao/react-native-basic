@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Text, View, Button } from 'react-native'
 import styled from 'styled-components'
 
+import GoalItem from './components/GoalItem'
+import GoalInput from './components/GoalInput'
+
 const AppContainer = styled.View`
   padding: 50px;
 `
@@ -17,40 +20,26 @@ const AppTextInput = styled.TextInput`
   width: 80%;
   padding: 10px;
 `
+
 const ItemConteinar = styled.FlatList`
   margin-top: 20px;
 `
-const ItemText = styled.Text`
-  padding: 10px;
-  margin: 5px 0;
-  border: solid 1px black;
-  background-color: #ccc;
-`
 
 export default function App() {
-  const [goal, setGoal] = useState('')
   const [goalList, setGoalList] = useState([])
 
-  const handleGoalInputChange = text => {
-    setGoal(text)
-  }
-
-  const handleAddGoal = () => {
+  const handleAddGoal = goalTitle => {
     const id = new Date().getTime().toString()
-    setGoalList(currentGoalList => [...currentGoalList, { id, value: goal }])
-    setGoal('')
+    setGoalList(currentGoalList => [...currentGoalList, { id, value: goalTitle }])
   }
 
   return (
     <AppContainer>
-      <InputGroup>
-        <AppTextInput onChangeText={handleGoalInputChange} value={goal} placeholder='Course Goal' />
-        <Button title='ADD' onPress={handleAddGoal} />
-      </InputGroup>
+      <GoalInput onAddGoal={handleAddGoal} />
       <ItemConteinar
         keyExtractor={(item, index) => item.id}
         data={goalList}
-        renderItem={itemData => <ItemText>{itemData.item.value}</ItemText>}
+        renderItem={itemData => <GoalItem title={itemData.item.value} />}
       ></ItemConteinar>
     </AppContainer>
   )
