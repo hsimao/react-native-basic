@@ -33,13 +33,21 @@ export default function App() {
     setGoalList(currentGoalList => [...currentGoalList, { id, value: goalTitle }])
   }
 
+  const handleRemoveGoal = goalId => {
+    setGoalList(currentGoals => {
+      return currentGoals.filter(goal => goal.id !== goalId)
+    })
+  }
+
   return (
     <AppContainer>
       <GoalInput onAddGoal={handleAddGoal} />
       <ItemConteinar
         keyExtractor={(item, index) => item.id}
         data={goalList}
-        renderItem={itemData => <GoalItem title={itemData.item.value} onDelete={() => console.log('Delete')} />}
+        renderItem={itemData => (
+          <GoalItem title={itemData.item.value} onDelete={() => handleRemoveGoal(itemData.item.id)} />
+        )}
       ></ItemConteinar>
     </AppContainer>
   )
