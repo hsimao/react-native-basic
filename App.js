@@ -39,7 +39,7 @@ export default function App() {
       <ItemConteinar
         keyExtractor={(item, index) => item.id}
         data={goalList}
-        renderItem={itemData => <GoalItem title={itemData.item.value} />}
+        renderItem={itemData => <GoalItem title={itemData.item.value} onDelete={() => console.log('Delete')} />}
       ></ItemConteinar>
     </AppContainer>
   )
