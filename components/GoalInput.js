@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from 'react-native'
+import { Button, Modal } from 'react-native'
 import styled from 'styled-components'
 
 const InputGroup = styled.View`
@@ -22,10 +22,12 @@ const GoalInput = props => {
   }
 
   return (
-    <InputGroup>
-      <AppTextInput onChangeText={handleGoalInputChange} value={goal} placeholder='Course Goal' />
-      <Button title='ADD' onPress={() => props.onAddGoal(goal)} />
-    </InputGroup>
+    <Modal visible={props.visible} animationType='slide'>
+      <InputGroup>
+        <AppTextInput onChangeText={handleGoalInputChange} value={goal} placeholder='Course Goal' />
+        <Button title='ADD' onPress={() => props.onAddGoal(goal)} />
+      </InputGroup>
+    </Modal>
   )
 }
 export default GoalInput

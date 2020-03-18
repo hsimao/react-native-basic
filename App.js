@@ -27,6 +27,7 @@ const ItemConteinar = styled.FlatList`
 
 export default function App() {
   const [goalList, setGoalList] = useState([])
+  const [isAddMode, setIsAddMode] = useState(false)
 
   const handleAddGoal = goalTitle => {
     const id = new Date().getTime().toString()
@@ -41,7 +42,8 @@ export default function App() {
 
   return (
     <AppContainer>
-      <GoalInput onAddGoal={handleAddGoal} />
+      <Button title='Add New Goal' onPress={() => setIsAddMode(true)} />
+      <GoalInput visible={isAddMode} onAddGoal={handleAddGoal} />
       <ItemConteinar
         keyExtractor={(item, index) => item.id}
         data={goalList}
