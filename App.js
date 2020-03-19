@@ -9,18 +9,6 @@ const AppContainer = styled.View`
   padding: 50px;
 `
 
-const InputGroup = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const AppTextInput = styled.TextInput`
-  border: solid 1px black;
-  width: 80%;
-  padding: 10px;
-`
-
 const ItemConteinar = styled.FlatList`
   margin-top: 20px;
 `
@@ -32,6 +20,7 @@ export default function App() {
   const handleAddGoal = goalTitle => {
     const id = new Date().getTime().toString()
     setGoalList(currentGoalList => [...currentGoalList, { id, value: goalTitle }])
+    setIsAddMode(false)
   }
 
   const handleRemoveGoal = goalId => {
@@ -40,10 +29,14 @@ export default function App() {
     })
   }
 
+  const handleCancelAddMode = () => {
+    setIsAddMode(false)
+  }
+
   return (
     <AppContainer>
       <Button title='Add New Goal' onPress={() => setIsAddMode(true)} />
-      <GoalInput visible={isAddMode} onAddGoal={handleAddGoal} />
+      <GoalInput visible={isAddMode} onAddGoal={handleAddGoal} onCancel={handleCancelAddMode} />
       <ItemConteinar
         keyExtractor={(item, index) => item.id}
         data={goalList}
